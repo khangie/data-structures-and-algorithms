@@ -13,6 +13,9 @@ package com.mergesort;
  * Time Complexity
  * - O(nlogn) since we are repeatedly dividing the array in half during the spltting phase
  * 
+ * Space Complexity
+ * - O(n) since we need to copy the items to a temp array
+ * 
  * Splitting Phase
  * 1) Start with an unsorted array
  * 2) Divide the arrays into two arrays, which are unsorted
@@ -53,7 +56,7 @@ public class MergeSortMain {
 			System.out.println(intArray[i]);
 		}
 	
-		mergeSort(intArray, 0, intArray.length);
+		mergeSort(intArray, new int[intArray.length], 0, intArray.length -1);
 		
 		System.out.print("\n");
 		
@@ -62,69 +65,97 @@ public class MergeSortMain {
 		}
 		
 	}
-	
+		
 	/**
+	 * Performs a merge sort on an array 
 	 * 
-	 * @param input array to sort
-	 * @param start start index
-	 * @param end end index (one greater than the last valid index of the input)
+	 * @param array array to be sorted
+	 * @param temp temp array used for merging
+	 * @param leftStart beginning index to be sorted
+	 * @param rightEnd end index to be sorted
 	 */
 	
-	public static void mergeSort(int[] input, int start, int end) {
-		
-		// A one element array is by definition sorted
-		if (end - start <= 1) {
+	public static void mergeSort(int[] array, int[] temp, int leftStart, int rightEnd) {
+
+		// If there is one or fewer elements left in the array, then it is sorted
+		if (leftStart >= rightEnd) {
 			return;
 		}
 		
-		// Extra elements to into the right array
-		int mid = (start + end) / 2;
+		int mid = (leftStart + rightEnd) / 2;
 		
-		// Perform mergeSort on the left array
-		mergeSort(input, start, mid);
+		// Sort the left side
+		mergeSort(array, temp, leftStart, mid);
 		
-		// Perform mergeSort on the right array
-		mergeSort(input, mid, end);
+		// Sort the right side
+		mergeSort(array, temp, mid + 1, rightEnd);
 		
-		// Perform the merge
-		merge(input, start, mid, end);
+		// Merge the left and right side together
+		mergeHalves(array, temp, leftStart, rightEnd);
 		
 	}
 	
-	public static void merge(int[] input, int start, int mid, int end) {
-		
-		// [Optimization] If the last element in the left partition is less than or equal to the first element in the right partition, then the array is sorted
-		if (input[mid - 1] <= input[mid]) {
-			return;
-		}
-		
-		int i = start;
-		int j = mid;
-		
-		// Keeps track of where we are in the temporary array
-		int tempIndex = 0;
-		
-		int[] temp = new int[end - start];
-		
-		// Loop until i reaches the mid or j reaches the end
-		while ((i < mid) && (j < end)) {
-			// Place the lesser of the item of the left or right array in the temp array
-			// Note the <= operator which maintains the stability of duplicate items
-			temp[tempIndex++] = input[i] <= input[j] ? input[i++] : input[j++];
-		}
+	/**
+	 * Merges two halves of an array together
+	 * 
+	 * @param array array to be sorted
+	 * @param temp temp array used for merging
+	 * @param leftStart beginning index to be sorted
+	 * @param rightEnd end index to be sorted
+	 */
 	
+	public static void mergeHalves(int[] array, int[] temp, int leftStart, int rightEnd) {
+		
+		// Define the index at the end of the left array
+		int leftEnd = (leftStart + rightEnd) / 2;
+		
+		// Define the index at the start of the right array
+		int rightStart = leftEnd + 1;
+		
+		// Define the size of the temp array
+		int size = rightEnd - leftStart + 1;
+		
+		// Define the initial index for the left array
+		int leftIndex = leftStart;
+		
+		// Define the initial index for the right array
+		int rightIndex = rightStart;
+		
+		// Define the initial index for the temp array
+		int tempIndex = leftStart;
+		
+		// Loop until either the leftIndex or rightIndex reaches the end
+		while ((leftIndex <= leftEnd) && (rightIndex <= rightEnd)) {
+			
+			// Copy the lowest value element into the temp array
+			if (array[leftIndex] <= array[rightIndex]) {
+				temp[tempIndex] = array[leftIndex];
+				leftIndex++;
+			} else {
+				temp[tempIndex] = array[rightIndex];
+				rightIndex++;
+			}
+		
+			tempIndex++;
+			
+		}
+		
 		/*
-		 * Copy the remaining items from the left array back into the main array
-		 * 1) i: the index of the left array to be copied from
-		 * 2) start + tempIndex: the index where the element at i will be copied to
-		 * 3) mid - i: The number of elements to copy
-		 * 
-		 * NOTE: There is no need to copy the elements from the right away because it is already sorted
-		 */ 
-		System.arraycopy(input, i, input, start + tempIndex, mid - i);
-	
-		// Copy over the temp array
-		System.arraycopy(temp, 0, input, start, tempIndex);
+		 * NOTE:
+		 * 1) When either leftIndex or rightIndex reaches the end, the remaining elements are in sorted order
+		 * 2) Only one of the following two functions will actually execute
+		 */
+		
+		// Copy the remaining elements from the left side into the temp array
+		System.arraycopy(array, leftIndex, temp, tempIndex, leftEnd - leftIndex + 1);
+		
+		// Copy the remaining elements from the right side into the temp array
+		System.arraycopy(array, rightIndex, temp, tempIndex, rightEnd - rightIndex + 1);	
+		
+		
+		
+		// Copy the temp array back into the main array
+		System.arraycopy(temp, leftStart, array, leftStart, size);
 		
 	}
 	
