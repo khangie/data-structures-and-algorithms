@@ -10,6 +10,21 @@ public class TreeNode {
 		this.data = data;
 	}
 	
+	/**
+	 * Inserts a value in the binary tree
+	 * 
+	 * Implementation
+	 * 1) If value == data, then duplicate data so do nothing
+	 * 2) If value < data, then insert into the left side of the tree
+	 *    a) If leftChild == null, then create a new leftChild node
+	 *    a) If leftChild != null, then recursively insert into left child
+	 * 3) If value => data, then insert into the right side of the tree
+	 *    a) If rightChild == null, then create a new rightChild node
+	 *    a) If rightChild != null, then recursively insert into right child
+	 * 
+	 * @param value value to be inserted
+	 */
+	
 	public void insert(int value) {
 		
 		// Don't insert duplicate values
@@ -37,6 +52,21 @@ public class TreeNode {
 		
 	}
 	
+	/**
+	 * Retrieves a node from the binary tree
+	 * 
+	 * Implementation
+	 * 1) If value == data, then return the node
+	 * 2) If value < data, then get the node from the left side of the tree
+	 *    a) If leftChild != null, then call the get function recursively on the left child
+	 * 3) If value >= data, then get the node from the right side of the tree
+	 *    a) If rightChild != null, then call the get function recursively on the right child
+	 * 4) If data is not found, return null
+	 * 
+	 * @param value
+	 * @return
+	 */
+	
 	public TreeNode get(int value) {
 		
 		// Value found in current node
@@ -59,6 +89,16 @@ public class TreeNode {
 		
 	}
 	
+	/**
+	 * Traverses the tree in order (left->parent->right)
+	 * 
+	 * Implementation
+	 * 1) If leftChild != null, then recursively traverse the left child
+	 * 2) Print the data for the parent (this node)
+	 * 3) If rightChild != null, then recursively traverse the right child
+	 * 
+	 */
+	
 	public void traverseInOrder() {
 		
 		if (leftChild != null) {
@@ -73,6 +113,16 @@ public class TreeNode {
 		
 	}
 	
+	/**
+	 * Returns the min value in the tree
+	 * 
+	 * Implementation
+	 * 1) If left child == null, return data for the parent (this node)
+	 * 2) If left child != null, then recursively call the min function on the left child
+	 * 
+	 * @return
+	 */
+	
 	public int min() {
 		if (leftChild == null) {
 			// If leftChild does not exist, then this node contains the min
@@ -81,6 +131,16 @@ public class TreeNode {
 			return leftChild.min();
 		}
 	}
+	
+	/**
+	 * Returns the max value in the tree
+	 * 
+	 * Implementation
+	 * 1) If right child == null, return data for the parent (this node)
+	 * 2) If right child != null, then recursively call the nax function on the right child
+	 * 
+	 * @return
+	 */
 	
 	public int max() {
 		if (rightChild == null) {

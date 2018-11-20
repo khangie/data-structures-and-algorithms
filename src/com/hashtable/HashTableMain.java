@@ -51,6 +51,7 @@ public class HashTableMain {
 		ht.put("Doe", johnDoe);
 		ht.put("Wilson", mikeWilson);
 		ht.put("Smith", marySmith);
+		ht.put("End", billEnd);
 		
 		System.out.println("Retrieve key Wilson: " + ht.get("Wilson"));
 		System.out.println("Retrieve key Wilson: " + ht.get("Smith"));
