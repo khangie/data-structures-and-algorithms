@@ -13,23 +13,28 @@ public class GraphMain {
 	 * 4) Types of graphs
 	 *    a) A DIRECTED GRAPH has pairs of vertices (u,v)
 	 *    b) An UNDIRECTED GRAPH has pairs of undirected vertices (u,v) and (v,u)
-	 * 5) Adjacency Matrix Implementation
-	 *    a) PROS
-	 *       1) Representation is easier to implement and follow. 
-	 *       2) Removing an edge takes O(1) time. 
-	 *       3) Queries like whether there is an edge from vertex ‘u’ to vertex ‘v’ are efficient and can be done O(1).
-     *    b) CONS
-     *       1) Consumes more space O(N^2). 
-     *       2) Even if the graph is sparse(contains less number of edges), it consumes the same space. 
-     *       3) Adding a vertex is O(N^2) time.
-	 * 6) Adjacency List Implementation
-	 *    a) PROS
-	 *       1) Saves space O(|N|+|E|). 
-	 *       2) In the worst case, there can be C(N, 2) number of edges in a graph thus consuming O(N^2) space. 
-	 *       3) Adding a vertex is easier.
-	 *    
 	 * 
-	 * Example Application
+	 * Adjacency Matrix Implementation
+	 * 1) We have an "A" matrix constructed out of the vertices of the graph
+	 *    a) The A(i,j) value in the matrix is 1 if there is a connection between node i and node j
+	 *    b) Otherwise, A(i,j) is 0   
+	 * 2) PROS
+	 *    a) Representation is easier to implement and follow. 
+	 *    b) Removing an edge takes O(1) time. 
+	 *    c) Queries like whether there is an edge from vertex ‘u’ to vertex ‘v’ are efficient and can be done O(1).
+     * 3) CONS
+     *    a) Consumes more space O(N^2). 
+     *    b) Even if the graph is sparse(contains less number of edges), it consumes the same space. 
+     *    c) Adding a vertex is O(N^2) time.
+	 * 
+	 * Adjacency List Implementation
+	 * 1) We create a Vertex class which stores the neighbors accordingly
+	 * 2) PROS
+	 *    a) Saves space O(|N|+|E|). 
+	 *    b) In the worst case, there can be C(N, 2) number of edges in a graph thus consuming O(N^2) space. 
+	 *    c) Adding a vertex is easier.
+	 *  
+	 * Example Applications
 	 * 1) Social Network
 	 *    a) In these networks, each person is represented with a node.
 	 *    b) Each node contains information like a person id, name, gender, and location.
@@ -37,6 +42,15 @@ public class GraphMain {
 	 * 2) Road Network
 	 *    a) Each city can be represented as vertices
 	 *    b) The road used to connect them are edges
+	 * 
+	 * Breadth-first search (BFS)
+	 * 1) Running time complexity is O(V+E)
+	 * 2) Memory complexity is not good since we have to store lots of references
+	 * 3) This is why Depth-first search (DFS) is usually preferred
+	 * 4) Constructs a shortest path
+	 * 5) Implementation
+	 *    a) We have an empty queue at the beginning and we keep checking whether we have visited the given node or not
+	 *    b) Keep iterating until queue is not empty
 	 * 
 	 * @param args
 	 */
