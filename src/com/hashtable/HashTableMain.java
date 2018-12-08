@@ -54,7 +54,21 @@ public class HashTableMain {
 		ht.put("End", billEnd);
 		
 		System.out.println("Retrieve key Wilson: " + ht.get("Wilson"));
-		System.out.println("Retrieve key Wilson: " + ht.get("Smith"));
+		System.out.println("Retrieve key Smith: " + ht.get("Smith"));
+		
+		System.out.print("\n");
+		
+		ChainedHashtable ht1 = new ChainedHashtable();
+		ht1.put("Jones", janeJones);
+		ht1.put("Doe", johnDoe);
+		ht1.put("Wilson", mikeWilson);
+		ht1.put("Smith", marySmith);
+		ht1.put("End", billEnd);
+		
+		ht1.printHashtable();
+		
+		System.out.println("Retrieve key Wilson: " + ht.get("Wilson"));
+		System.out.println("Retrieve key Smith: " + ht.get("Smith"));
 		
 	}
 }
